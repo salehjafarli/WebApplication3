@@ -11,5 +11,6 @@ namespace WebApplication3.Models
         public int Id { get; set; }
         [StringLength(250)]
         public string Note { get; set; }
+        public string ButtonText { get; set; } = "Add";
     }
 }

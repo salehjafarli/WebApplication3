@@ -19,7 +19,7 @@ namespace WebApplication3.Models
         public decimal PortionPrice { get; set; }
         [Required(ErrorMessage = "Kateqoriya mütləq seçilməlidir")]
         public CategoryModel CookCategory { get; set; }
-        [JsonIgnore]
-        public List<SelectListItem> Categories { get; set; }
+        public List<SelectListItem> Categories { get; set; } = new List<SelectListItem>();
+        
     }
 }

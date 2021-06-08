@@ -19,6 +19,7 @@ namespace WebApplication3.Controllers
         {
 
         }
+        [HttpGet]
         public IActionResult Index()
         {
             CategoryViewModel vm = new CategoryViewModel();
@@ -33,8 +34,23 @@ namespace WebApplication3.Controllers
             
             return View(vm);
         }
-        public IActionResult Update(CategoryModel Categorymodel)
+        [HttpGet]
+        public IActionResult Update(int id)
         {
+            CategoryModel Categorymodel;
+            using (CateringContext c= new CateringContext())
+            {
+                var category = c.CookCategories.Include(x => x.Creator).FirstOrDefault(x => x.Id == id);
+                if (category == null)
+                {
+                    Categorymodel = new CategoryModel();
+                }
+                else
+                {
+                    Categorymodel = Mapper<CookCategory, CategoryModel>.Map(category);
+                    Categorymodel.ButtonText = "Update";
+                }
+            }
             
             return View(Categorymodel);
         }

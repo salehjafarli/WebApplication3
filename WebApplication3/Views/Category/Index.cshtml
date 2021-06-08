@@ -6,7 +6,7 @@
 <div class="text-center">
     <h1 class="display-4">@Model.Header</h1>
 </div>
-<button class="MyCommonButton" style="height: 45px; width : 135px;"><a asp-controller="Category" asp-action="Update" asp-route-Categorymodel="@null ">Add</a></button>
+<button class="MyCommonButton" style="height: 45px; width : 135px;"><a asp-controller="Category" asp-action="Update" asp-route-id="0">Add</a></button>
 
 <div style="margin-top : 20px">
     <table id="example" class="display" style="width:100%">
@@ -24,7 +24,7 @@
                     <td>@item.Name</td>
                     <td>@item.Note</td>
                     <td>
-                        <button class="MyCommonButton"><a>@Html.ActionLink("Update", "Update", "Category", item)</a></button>
+                        <button class="MyCommonButton"><a asp-controller="Category" asp-action="Update" asp-route-id="@item.Id">Update</a></button>
                         <div class="delete-confirm">
                             <button class="delete">
                                 <i class="fa fa-trash-o fa-lg"></i>
