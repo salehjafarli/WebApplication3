@@ -1,0 +1,59 @@
+﻿
+@{
+    Layout = "FormLayout";
+}
+@model CookModel;
+
+<form class="contact-form" asp-controller="Cook" asp-action="Save" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="col-sm-12">
+        <div class="input-block">
+            <label asp-for="Name">Ad</label>
+            <input type="text" class="form-control" asp-for="Name">
+        </div>
+        <div class="alert alert-danger">
+            <span asp-validation-for="Name"></span>
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="input-block">
+            <label asp-for="PortionPrice">Porsiya qiyməti</label>
+            <input type="text" class="form-control" asp-for="PortionPrice">
+        </div>
+        <div class="alert alert-danger">
+            <span asp-validation-for="PortionPrice"></span>
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="input-block">
+            <label asp-for="PortionWeight">Porsiya çəkisi</label>
+            <input type="text" class="form-control" asp-for="PortionWeight">
+        </div>
+        <div class="alert alert-danger">
+            <span asp-validation-for="PortionWeight"></span>
+        </div>
+    </div>
+
+
+
+    <div class="col-sm-12">
+        <select asp-for="CookCategory.Id" asp-items="Model.Categories" style="width: 30%; height: 60px;" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+        </select>
+        <div class="alert alert-danger">
+            <span asp-validation-for="CookCategory"></span>
+        </div>
+    </div>
+
+
+    <div class="col-sm-12">
+        <div class="input-block textarea">
+            <label asp-for="Note">Qeyd</label>
+            <textarea asp-for="Note" rows="3" type="text" class="form-control"></textarea>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <button type="submit" class="MyCommonButton" style="height: 45px; width : 135px;">Submit</button>
+    </div>
+</form>

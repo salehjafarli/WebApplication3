@@ -1,0 +1,80 @@
+﻿@using WebApplication3.ViewModels
+@using Newtonsoft.Json
+
+@model CookViewModel
+
+
+<div class="text-center">
+    <h1 class="display-4">@Model.Header</h1>
+</div>
+<button class="MyCommonButton" style="height: 45px; width : 135px;"><a asp-controller="Cook" asp-action="Update" asp-route-myjson="@null ">Add</a></button>
+
+<div style="margin-top : 20px">
+    <table id="example" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Portion Weight</th>
+                <th>Portion Price</th>
+                <th>Category</th>
+                <th>Note</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Cooks)
+             {
+             <tr>
+                <td>@item.Name</td>
+                <td>@item.PortionWeight</td>
+                <td>@item.PortionPrice</td>
+                <td>@item.CookCategory.Name </td>
+                <td>@item.Note</td>
+                <td>
+                    <button class="MyCommonButton"><a>@Html.ActionLink("Update", "Update", "Cook", new { myjson = JsonConvert.SerializeObject(item) }, null);</a></button>
+                    <div class="delete-confirm">
+                        <button class="delete">
+                            <i class="fa fa-trash-o fa-lg"></i>
+                            <span class="text">Delete</span>
+                        </button>
+                        <button  class="yes MyCommonButton">
+                            <form id="myForm" method="post" asp-controller="Cook" asp-action="Delete" asp-route-cookid="@item.Id">
+                                <a onclick="myClickFunc()"> Yes</a>
+                                <i class="fa fa-check"></i>
+                            </form>
+
+                        </button>
+                        <button class="no">
+                            <i class="fa fa-close"></i>
+                            <span class="text">No</span>
+                        </button>
+                    </div>
+                </td>
+             </tr>
+             }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Name</th>
+                <th>Portion Weight</th>
+                <th>Portion Price</th>
+                <th>Category</th>
+                <th>Note</th>
+                <th></th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+@section scripts{
+
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+        function myClickFunc() {
+            document.getElementById("myForm").submit();
+        }
+
+    </script>
+}
+

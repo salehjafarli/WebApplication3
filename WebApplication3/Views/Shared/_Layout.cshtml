@@ -1,0 +1,82 @@
+﻿@using WebApplication3.ViewModels
+@model BaseViewModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    @{
+         await Html.RenderPartialAsync("CssLinks.cshtml");
+     }
+    <style>
+        .MyCommonButton {
+            position: relative;
+            font-family: 'Roboto', sans-serif;
+            font-size: 10pt;
+            white-space: nowrap;
+            padding: 0.5em 2em;
+            background-color: #008803;
+            color: #181818;
+            border: none;
+            border-radius: 4px;
+        }
+
+            .MyCommonButton a {
+                color: black;
+                text-decoration: none;
+            }
+    </style>
+
+
+</head>
+<body>
+    
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-light border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Catering</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Chief" asp-action="Index">Chiefs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Index">Categories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Cook" asp-action="Index">Cooks</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <div style="float : right">
+
+                <p style="text-align: center; font-size :24px">Current User :@Model.CurrentUser.Username </p>
+                @foreach (var item in Model.CurrentUser.Roles)
+                {
+                    <span style="text-align: center; font-size :24px"> @item</span>
+                }
+
+                  
+            <button class="MyCommonButton"><a asp-controller="Account" asp-action="Logout">Logout</a></button>
+
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+
+    @{
+        await Html.RenderPartialAsync("JsScripts.cshtml");
+     }
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

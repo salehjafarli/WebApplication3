@@ -1,0 +1,61 @@
+﻿@{
+    Layout = "FormLayout";
+}
+@model WebApplication3.Models.ChiefModel
+
+
+<form  class="contact-form" asp-controller="Chief" asp-action="Save" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="col-sm-12">
+        <div class="input-block">
+            <label asp-for="Name">Ad</label>
+            <input type="text" class="form-control" asp-for="Name">
+        </div>
+        <div class="alert alert-danger">
+            <span asp-validation-for="Name"></span>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="input-block">
+            <label asp-for="Email">Email</label>
+            <input asp-for="Email" type="text" class="form-control">
+        </div>
+        <div class="alert alert-danger">
+            <span asp-validation-for="Email"></span>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="input-block">
+            <label asp-for="Phone">Telefon</label>
+            <input asp-for="Phone" type="text" class="form-control">
+        </div>
+        <div class="alert alert-danger">
+            <span asp-validation-for="Phone"></span>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="input-block textarea">
+            <label asp-for="Note">Qeyd</label>
+            <textarea asp-for="Note" rows="3" type="text" class="form-control"></textarea>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <button type="submit" class="MyCommonButton" style="height: 45px; width : 135px;">Submit</button>
+    </div>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

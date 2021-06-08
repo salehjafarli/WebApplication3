@@ -1,0 +1,69 @@
+﻿
+@using WebApplication3.ViewModels
+@model CategoryViewModel
+
+
+<div class="text-center">
+    <h1 class="display-4">@Model.Header</h1>
+</div>
+<button class="MyCommonButton" style="height: 45px; width : 135px;"><a asp-controller="Category" asp-action="Update" asp-route-Categorymodel="@null ">Add</a></button>
+
+<div style="margin-top : 20px">
+    <table id="example" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Note</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Categories)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Note</td>
+                    <td>
+                        <button class="MyCommonButton"><a>@Html.ActionLink("Update", "Update", "Category", item)</a></button>
+                        <div class="delete-confirm">
+                            <button class="delete">
+                                <i class="fa fa-trash-o fa-lg"></i>
+                                <span class="text">Delete</span>
+                            </button>
+                            <button formmethod="post" class="yes MyCommonButton">
+                                <form id="myForm" method="post" asp-controller="Category" asp-action="Delete" asp-route-id="@item.Id">
+                                    <a onclick="myClickFunc()"> Yes</a>
+                                    <i class="fa fa-check"></i>
+                                </form>
+
+                            </button>
+                            <button class="no">
+                                <i class="fa fa-close"></i>
+                                <span class="text">No</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Name</th>
+                <th>Note</th>
+                <th></th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+@section scripts{
+
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+        function myClickFunc() {
+            document.getElementById("myForm").submit();
+        }
+
+    </script>
+}
