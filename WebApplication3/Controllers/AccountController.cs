@@ -37,7 +37,7 @@ namespace WebApplication3.Controllers
             
             if (!ModelState.IsValid)
             {
-
+                return View("Index");
             }
             else
             {
@@ -46,7 +46,7 @@ namespace WebApplication3.Controllers
                     var user = c.Users.FirstOrDefault(x => x.Username == model.Username);
                     if (user == null)
                     {
-
+                        return View("Index", new AccountModel { message = "Username is not found" });
                     }
                     var checkpassword = await userManager.CheckPasswordAsync(user,model.Password);
                     if (!checkpassword)

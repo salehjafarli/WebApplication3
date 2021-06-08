@@ -77,7 +77,7 @@ namespace WebApplication3.Controllers
         {
             if (!ModelState.IsValid)
             {
-
+                return View(cook);
             }
             Cook cook1 = Mapper<Cook, CookModel>.Map(cook);
             cook1.CookCategoryId = cook.CookCategory.Id;
@@ -89,15 +89,29 @@ namespace WebApplication3.Controllers
                 cook1.IsDeleted = false;
                 using (CateringContext c = new CateringContext())
                 {
-                    c.Add(cook1);
-                    c.SaveChanges();
+                    try
+                    {
+                        c.Add(cook1);
+                        c.SaveChanges();
+                    }
+                    catch (Exception)
+                    {
+                        return Content("Error");
+                    }
                 }
             }
             else {
                 using (CateringContext c = new CateringContext())
                 {
-                    c.Update(cook1);
-                    c.SaveChanges();
+                    try
+                    {
+                        c.Update(cook1);
+                        c.SaveChanges();
+                    }
+                    catch (Exception)
+                    {
+                        return Content("Error");
+                    }
                 }
             }
             return RedirectToAction("Index");
@@ -111,8 +125,14 @@ namespace WebApplication3.Controllers
             {
                 Cook cook = c.Cooks.FirstOrDefault(x => x.Id == id) ?? new Cook();
                 cook.IsDeleted = true;
-                c.SaveChanges();
-                
+                try
+                {
+                    c.SaveChanges();
+                }
+                catch (Exception)
+                {
+                    return Content("Error");
+                }
             }
             return RedirectToAction("Index");
         }

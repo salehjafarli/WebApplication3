@@ -70,15 +70,33 @@ namespace WebApplication3.Controllers
                 category.CreatorId = CurrentUser.Id;
                 if (Categorymodel.Id == 0)
                 {
+                    try
+                    {
+                        c.Add(category);
+                        c.SaveChanges();
+                    }
+                    catch (Exception)
+                    {
+                        return Content("Error");
+                        
+                    }
                     
-                    c.Add(category);
-                    c.SaveChanges();
                 }
                 else
                 {
-                    c.Update(category);
-                    c.SaveChanges();
+                    try
+                    {
+                        c.Update(category);
+                        c.SaveChanges();
+                    }
+                    catch (Exception)
+                    {
+
+                        return Content("Error");
+                    }
+                    
                 }
+                
             }
             return RedirectToAction("Index");
         }
@@ -91,7 +109,16 @@ namespace WebApplication3.Controllers
                 category.IsDeleted = true;
                 category.LastModifiedDate = DateTime.UtcNow;
                 category.CreatorId = CurrentUser.Id;
-                c.SaveChanges();
+                try
+                {
+                    c.SaveChanges();
+                }
+                catch (Exception)
+                {
+
+                    return Content("Error");
+                }
+                
             }
             return RedirectToAction("Index");
         }

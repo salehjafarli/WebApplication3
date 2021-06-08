@@ -61,48 +61,48 @@ namespace WebApplication3.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("Update");
+                return View(chiefModel);
             }
             using (CateringContext context = new CateringContext())
             {
-
-
-                Chief chief = Mappers.Mapper<Chief, ChiefModel>.Map(chiefModel);
+                Chief chief = Mapper<Chief, ChiefModel>.Map(chiefModel);
                 chief.CreatorId = CurrentUser.Id;
                 chief.LastModifiedDate = DateTime.UtcNow;
                 chief.IsDeleted = false;
                 if (chiefModel.Id != 0)
                 {
-                    context.Update(chief);
+                    
                     try
                     {
+                        context.Update(chief);
                         context.SaveChanges();
                     }
                     catch (Exception)
                     {
 
-                        throw;
+                        return Content("Error");
                     }
                     
                 }
                 else
                 {
-                    context.Add(chief);
+                    
                     try
                     {
+                        context.Add(chief);
                         context.SaveChanges();
                     }
                     catch (Exception)
                     {
 
-                        throw;
+                        return Content("Error");
                     }
                 }
             }
             return RedirectToAction("Index");
         }
+
         [HttpPost]
-        [Route("Delete")]
         public IActionResult Delete(int id)
         {
             using (CateringContext context = new CateringContext())
@@ -118,10 +118,11 @@ namespace WebApplication3.Controllers
                 catch (Exception)
                 {
 
-                    throw;
+                    return Content("Error");
                 }
             }
             return RedirectToAction("Index");
         }
+        
     }
 }
